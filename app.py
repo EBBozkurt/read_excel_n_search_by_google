@@ -1,51 +1,57 @@
 
 
-from services.excel_services import readExcel
-from services.file_services import writeResultsToTxtFile
-from services.google_search_services import searchWithGoogle
+from services.excel_services import read_excel
+from services.file_services import write_results_to_txt_file
+from services.google_search_services import search_with_google
 
 
 # Wants excel path name which will be used.
+# Ex: Employee Sample Data.xlsx
 excelName = input("Please enter your excel path: ")
 
 # Wants excel sheet name which will be used.
+# Ex: Data
 sheet_name = input(
-    "Please enter your sheet name: ")
+    "Please enter the name of your sheet. If you do not enter any input, the program will use the 0th sheet: ")
 
 # Wants column name in specific sheet name which will be used.
+# Ex: Job Title
 column_name = input(
-    "Please enter your column name: ")
+    "Please enter the name of the column you want to research on Google: ")
 
 print("Please wait, your excel has started to read. \n")
 
 # Reads excel by given arguments.
-list = readExcel(excelName,  column_name, sheet_name)
+excelList = read_excel(excel_name=excelName,
+                       column_name=column_name, sheet_name=sheet_name)
 
 print("Your excel reading has been done! \n")
 
-searchList = []
+# Google search result list
+searchResultList = []
 
-if (len(list) != 0):
+if (len(excelList) != 0):
 
-    # ""
+    # Ex: ""
     prefixText = input(
         "Please enter your prefix Text (You can go with empty blank): ")
 
-    # careers
+    # Ex: careers
     suffixText = input(
         "Please enter your suffix Text (You can go with empty blank): ")
 
-    # Reads excel by given serach text.
-    searchList = searchWithGoogle(
-        list, prefixText=prefixText,  suffixText=suffixText)
+    # Reads excel by given search text.
+    # Ex: This function searchs like -->   " " + Job Title[0] (Analyst) +  " careers"
+    searchResultList = search_with_google(
+        search_list=excelList, prefix_text=prefixText,  suffix_text=suffixText)
 
 else:
     print("Sorry, does not read any list from the given parameters.")
 
 
-if (len(searchList) != 0):
+if (len(searchResultList) != 0):
     # Write a results to text file.
-    writeResultsToTxtFile(searchList)
+    write_results_to_txt_file(searchResultList)
 else:
     print(
         "Does not find any Google search. I know it is impossible but it happened :(")
