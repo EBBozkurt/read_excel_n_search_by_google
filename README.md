@@ -1,10 +1,7 @@
 # read_excel_n_search_by_google
 
-
-
-Readme will be updated.
-
-
+This project essentially reads elements from a given Excel column, searches for them on Google, and writes the results to a text file.
+Please feel free to contribute to this repository.
 
 # Used Packages
 -> py -m pip install pandas
